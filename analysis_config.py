@@ -23,7 +23,7 @@ config_download_raw_data = {
          "store_dir": "data/stock_id/", "extract_func": "craw_eniu_stock_id", "refresh_now": False},
         {"store_name": "亿牛：净利润", "store_ulr": "https://eniu.com/chart/profita/{stock_id}/q/0",
          "store_dir": "data/net_profit/", "stock_id_dir": "data/stock_id/",
-         "extract_func": "craw_eniu_net_profit", "refresh_now": True},
+         "extract_func": "craw_eniu_net_profit", "refresh_now": False},
         {"store_name": "", "store_ulr": "", "store_dir": "", "extract_func": "", "refresh_now": False}
     ]
 }

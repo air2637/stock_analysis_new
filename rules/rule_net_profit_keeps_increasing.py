@@ -16,11 +16,14 @@ def apply_rule(raw_data_loc, keeps_increasing_count, net_profit_type):
     net_profit_dir = os.path.join(cwd, raw_data_loc)
     stock_wanted = []
     for filename in os.listdir(net_profit_dir):
-        logger.info("Load %s", filename)
-        with open(os.path.join(net_profit_dir, filename), 'r') as f:
-            df = pd.read_csv(f)
-            if check_keeps_increasing_count(df, int(keeps_increasing_count)):
-                stock_wanted.append({"stock_id": df.loc[0, "stock_id"], "stock_name": df.loc[0, "stock_name"]})
+        try:
+            with open(os.path.join(net_profit_dir, filename), 'r') as f:
+                df = pd.read_csv(f)
+                if check_keeps_increasing_count(df, int(keeps_increasing_count)):
+                    stock_wanted.append({"stock_id": df.loc[0, "stock_id"], "stock_name": df.loc[0, "stock_name"]})
+        except Exception as e:
+            logger.error("Error in loading %s - Error details: %s", filename, e)
+
     logger.info("stock_wanted: %s", stock_wanted)
     return stock_wanted
 
