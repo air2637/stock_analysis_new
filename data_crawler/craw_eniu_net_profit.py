@@ -1,8 +1,5 @@
+from datetime import datetime
 import re
-import time
-
-import requests
-
 from setup_logging import logger
 import os
 import pandas as pd
@@ -31,9 +28,12 @@ async def convert_csv(filename, stock_id, stock_name):
 
 
 async def single_task_wrapper(url, filename, stock_id, stock_name) -> None:
-    content = await read_url(url)
-    await write_data(filename, content)
-    await convert_csv(filename, stock_id, stock_name)
+    try:
+        content = await read_url(url)
+        await write_data(filename, content)
+        await convert_csv(filename, stock_id, stock_name)
+    except Exception as e:
+        logger.error("Exception handling %s from %s - Exception details: %s", stock_id, url, e)
 
 
 async def iterate_stocks(df_all_stocks, store_dir, store_url) -> None:
@@ -48,7 +48,7 @@ async def iterate_stocks(df_all_stocks, store_dir, store_url) -> None:
 async def iterate_stocks_wrapper(df_all_stocks, store_dir, store_url) -> None:
     lower = 0
     max_rows = df_all_stocks.shape[0]
-    for upper in range(15, max_rows, 30):
+    for upper in range(20, max_rows, 40):
         logger.info("Downloading group between %s to %s", lower, upper)
         await iterate_stocks(df_all_stocks[lower:upper], store_dir, store_url)
         lower = upper
@@ -66,4 +66,6 @@ def craw(store_url, store_dir, stock_id_dir):
     store_dir = os.path.join(cwd, store_dir)
     stock_id_dir = os.path.join(cwd, stock_id_dir, "stock_id.csv")
     df_all_stocks = pd.read_csv(stock_id_dir, dtype=str)
-    asyncio.run(iterate_stocks_wrapper(df_all_stocks[:300], store_dir, store_url))
+    time_start = datetime.now()
+    asyncio.run(iterate_stocks_wrapper(df_all_stocks, store_dir, store_url))
+    logger.info("Total spent %s seconds", (datetime.now() - time_start).total_seconds())
