@@ -25,8 +25,6 @@ def download_raw_data():
             data_crawler.crawl_by(data_store["extract_func"], data_store)
 
 
-
-
 def filter_stock_with_rules():
     """ Ideally it should take in a tuple of rules with logic gates
         :param rules tuple -> filter_rule[]?
@@ -38,12 +36,15 @@ def filter_stock_with_rules():
         logic gates to apply to the filtered_result of the rules
     """
     for each_rule_config in config_stock_filter_rules["rules"]:
-        for rule_name, rule_params in each_rule_config.items():
-            logger.info('rule_name: %s', rule_name)
-            for key in rule_params:
-                logger.info('param: %s = %s', key, rule_params[key])
-
-            stock_filter_rule.call_rule(rule_name, rule_params)
+        rule_name = ""
+        rule_params = {}
+        for rule_config, rule_config_val in each_rule_config.items():
+            logger.info('rule_config -- %s: %s', rule_config, rule_config_val)
+            if rule_config != "enabled":
+                rule_name = rule_config
+                rule_params = rule_config_val
+            elif rule_config == "enabled" and rule_config_val:
+                stock_filter_rule.call_rule(rule_name, rule_params)
 
 
 if __name__ == '__main__':

@@ -1,1 +1,1 @@
-__all__ = ["craw_eniu_stock_id", "craw_eniu_net_profit"]
+__all__ = ["craw_eniu_stock_id", "craw_eniu_net_profit", "craw_eniu_price_earning_ratio" ]

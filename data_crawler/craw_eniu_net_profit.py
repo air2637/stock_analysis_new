@@ -9,7 +9,7 @@ import aiohttp
 
 async def read_url(url) -> bytes:
     async with aiohttp.ClientSession() as session:
-        async with session.get(url, ) as resp:
+        async with session.get(url) as resp:
             content = await resp.read()
             return content
 
@@ -45,10 +45,10 @@ async def iterate_stocks(df_all_stocks, store_dir, store_url) -> None:
     await asyncio.wait(tasks)
 
 
-async def iterate_stocks_wrapper(df_all_stocks, store_dir, store_url) -> None:
+async def iterate_stocks_wrapper(df_all_stocks, store_dir, store_url, step_val) -> None:
     lower = 0
     max_rows = df_all_stocks.shape[0]
-    for upper in range(20, max_rows, 40):
+    for upper in range(step_val, max_rows, step_val):
         logger.info("Downloading group between %s to %s", lower, upper)
         await iterate_stocks(df_all_stocks[lower:upper], store_dir, store_url)
         lower = upper
@@ -67,5 +67,5 @@ def craw(store_url, store_dir, stock_id_dir):
     stock_id_dir = os.path.join(cwd, stock_id_dir, "stock_id.csv")
     df_all_stocks = pd.read_csv(stock_id_dir, dtype=str)
     time_start = datetime.now()
-    asyncio.run(iterate_stocks_wrapper(df_all_stocks, store_dir, store_url))
+    asyncio.run(iterate_stocks_wrapper(df_all_stocks, store_dir, store_url, 20))
     logger.info("Total spent %s seconds", (datetime.now() - time_start).total_seconds())
