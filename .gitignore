@@ -1,4 +1,5 @@
 *.pyc
 *.log
 .idea/
-data/
+data/net_profit/
+data/stock_id/
