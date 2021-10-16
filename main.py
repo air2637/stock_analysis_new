@@ -27,7 +27,7 @@ def download_raw_data():
 
 
 
-def filter_stock_based_on():
+def filter_stock_with_rules():
     """ Ideally it should take in a tuple of rules with logic gates
         :param rules tuple -> filter_rule[]?
         filter_rule = {
@@ -48,5 +48,5 @@ def filter_stock_based_on():
 
 if __name__ == '__main__':
     download_raw_data()
-    # filter_stock_based_on()
+    filter_stock_with_rules()
 

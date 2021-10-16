@@ -1,9 +1,16 @@
+import os
+
 from data_crawler import *
 from setup_logging import logger
 
 
 def crawl_by(func, param_dict):
-    # breakpoint()
+
+    if param_dict["refresh_now"]:
+        cwd = os.getcwd()
+        path = os.path.join(cwd, param_dict["store_dir"])
+        for f in os.listdir(path):
+            os.remove(os.path.join(path, f))
 
     if func == "craw_eniu_stock_id":
         craw_eniu_stock_id.craw(param_dict["store_ulr"], param_dict["store_dir"])

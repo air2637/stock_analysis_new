@@ -4,8 +4,8 @@ config_stock_filter_rules = {
 
     "rules": [
         {"rule_net_profit_keeps_increasing": {
-            "raw_data_loc": "some loc here",
-            "keeps_increasing_count": "1",
+            "raw_data_loc": "data/net_profit/",
+            "keeps_increasing_count": "3",
             "net_profit_type": "year"
         }},
         {"rule_roe": {

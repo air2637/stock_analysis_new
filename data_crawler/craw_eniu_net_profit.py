@@ -16,5 +16,14 @@ def craw(store_url, store_dir, stock_id_dir):
     # Load stock ids from /data/stock_id/stock_id.csv
     df_all_stocks = pd.read_csv(stock_id_dir, dtype=str)
     for index, row in df_all_stocks.iterrows():
-        net_profit_url = re.sub(r"\{stock_id\}", row.stock_number, store_url)
+        net_profit_url = re.sub(r"\{stock_id\}", row.stock_id, store_url)
+        file_path = os.path.join(cwd, store_dir, row.stock_id + ".csv")
         logger.info("Stock net profit url: %s", net_profit_url)
+
+        df_stock_net_profit = pd.read_json(net_profit_url)
+        df_stock_net_profit["stock_id"] = row.stock_id
+        df_stock_net_profit["stock_name"] = row.stock_name
+        df_stock_net_profit.to_csv(file_path)
+        if index > 5:
+            break
+
