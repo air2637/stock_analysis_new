@@ -18,7 +18,3 @@ def craw(store_url, store_dir, stock_id_dir):
     for index, row in df_all_stocks.iterrows():
         net_profit_url = re.sub(r"\{stock_id\}", row.stock_number, store_url)
         logger.info("Stock net profit url: %s", net_profit_url)
-        
-
-
-    
