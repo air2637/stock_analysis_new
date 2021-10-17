@@ -13,12 +13,12 @@ config_stock_filter_rules = {
             "percentile_threshold": "10%",
             "percentile_date_range": "5 years",
             "max_per": "20"
-        }, "enabled": False},
+        }, "enabled": True},
         {"rule_roe": {
             "raw_data_loc": "",
             "min_roe": "",
             "roe_type": ""
-        }, "enabled": True}
+        }, "enabled": False}
     ]
 }
 

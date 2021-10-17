@@ -1,1 +1,1 @@
-__all__ = ["rule_net_profit_keeps_increasing", "rule_roe"]
+__all__ = ["rule_net_profit_keeps_increasing", "rule_roe", "rule_price_earning_ratio"]
