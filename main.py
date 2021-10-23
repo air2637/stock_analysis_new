@@ -1,4 +1,3 @@
-import importlib
 from analysis_config import *
 from rules import stock_filter_rule
 from data_crawler import data_crawler
@@ -44,7 +43,7 @@ def filter_stock_with_rules():
                 rule_name = rule_config
                 rule_params = rule_config_val
             elif rule_config == "enabled" and rule_config_val:
-                stock_filter_rule.call_rule(rule_name, rule_params)
+                wanted_stocks = stock_filter_rule.call_rule(rule_name, rule_params)
 
 
 if __name__ == '__main__':

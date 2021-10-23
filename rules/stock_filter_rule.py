@@ -14,3 +14,7 @@ def call_rule(rule, kwargs):
 
     else:
         logger.warn("rule %s is not registered", rule)
+
+
+def combine_rule_results(logic_gates):
+    pass

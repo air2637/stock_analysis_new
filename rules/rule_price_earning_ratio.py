@@ -3,11 +3,12 @@ import os
 import re
 from datetime import date, timedelta
 
+from rules import utils
 from setup_logging import logger
 import pandas as pd
 
 
-def apply_rule(raw_data_loc, percentile_threshold, percentile_date_range, max_per):
+def apply_rule(raw_data_loc, result_loc, percentile_threshold, percentile_date_range, max_per):
     """1. Read per data from raw_data_loc
 
        2. if percentile_threshold and percentile_date_range specified,
@@ -34,10 +35,13 @@ def apply_rule(raw_data_loc, percentile_threshold, percentile_date_range, max_pe
             logger.debug("result_filter_by_max_per: %s, result_filter_by_percentile: %s", result_filter_by_max_per,
                          result_filter_by_percentile)
             if result_filter_by_max_per and result_filter_by_percentile:
-                stock_wanted.append({"stock_id": df.loc[0, "stock_id"], "stock_name": df.loc[0, "stock_name"]})
+                stock_wanted_template = {"stock_id": df.loc[0, "stock_id"], "stock_name": df.loc[0, "stock_name"],
+                                         "rule_applied": __name__}
+                stock_wanted.append(stock_wanted_template)
         except Exception as e:
             logger.error("Error in loading %s - Error details: %s", file, e)
     logger.info("stock_wanted: %s", stock_wanted)
+    utils.save_result(pd.DataFrame(stock_wanted), result_loc, __name__)
     return stock_wanted
 
 
