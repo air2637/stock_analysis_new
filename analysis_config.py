@@ -1,15 +1,17 @@
 config_stock_filter_rules = {
-
+    # 逻辑门： (规则1 与 规则2) 且 规则3...
     "logic_gates": "rule_net_profit_keeps_increasing and rule_roe",
 
     "rules": [
+        # 净利润保持增长
         {"rule_net_profit_keeps_increasing": {
             "raw_data_loc": "data/net_profit/",
             "result_loc": "data/result/",
             "keeps_increasing_count": "5",
             "net_profit_type": "year"
-        }, "enabled": True},
+        }, "enabled": False},
 
+        # 市盈率历史低位
         {"rule_price_earning_ratio": {
             "raw_data_loc": "data/price_earning_ratio/",
             "result_loc": "data/result/",
