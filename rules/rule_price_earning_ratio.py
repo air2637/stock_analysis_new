@@ -36,13 +36,12 @@ def apply_rule(raw_data_loc, result_loc, percentile_threshold, percentile_date_r
                          result_filter_by_percentile)
             if result_filter_by_max_per and result_filter_by_percentile:
                 stock_wanted_template = {"stock_id": df.loc[0, "stock_id"], "stock_name": df.loc[0, "stock_name"],
-                                         "rule_applied": __name__}
+                                         __name__.replace("rules.", ""): True}
                 stock_wanted.append(stock_wanted_template)
         except Exception as e:
             logger.error("Error in loading %s - Error details: %s", file, e)
     logger.info("stock_wanted: %s", stock_wanted)
-    utils.save_result(pd.DataFrame(stock_wanted), result_loc, __name__)
-    return stock_wanted
+    return utils.save_result(pd.DataFrame(stock_wanted), result_loc, __name__)
 
 
 def filter_by_percentile(df, percentile_threshold, percentile_date_range) -> bool:

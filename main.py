@@ -34,6 +34,7 @@ def filter_stock_with_rules():
         }
         logic gates to apply to the filtered_result of the rules
     """
+    result_files = []
     for each_rule_config in config_stock_filter_rules["rules"]:
         rule_name = ""
         rule_params = {}
@@ -43,7 +44,10 @@ def filter_stock_with_rules():
                 rule_name = rule_config
                 rule_params = rule_config_val
             elif rule_config == "enabled" and rule_config_val:
-                wanted_stocks = stock_filter_rule.call_rule(rule_name, rule_params)
+                result_file = stock_filter_rule.call_rule(rule_name, rule_params)
+                result_files.append(result_file)
+    # combine results from result files and apply logic gate
+    stock_filter_rule.combine_rule_results(result_files, config_stock_filter_rules["logic_gates"])
 
 
 if __name__ == '__main__':

@@ -21,14 +21,13 @@ def apply_rule(raw_data_loc, result_loc, keeps_increasing_count, net_profit_type
                 df = pd.read_csv(f)
                 if check_keeps_increasing_count(df, int(keeps_increasing_count)):
                     stock_wanted_template = {"stock_id": df.loc[0, "stock_id"], "stock_name": df.loc[0, "stock_name"],
-                                             "rule_applied": __name__}
+                                             __name__.replace("rules.", ""): True}
                     stock_wanted.append(stock_wanted_template)
         except Exception as e:
             logger.error("Error in loading %s - Error details: %s", filename, e)
 
     logger.info("stock_wanted: %s", stock_wanted)
-    utils.save_result(pd.DataFrame(stock_wanted), result_loc, __name__)
-    return stock_wanted
+    return utils.save_result(pd.DataFrame(stock_wanted), result_loc, __name__)
 
 
 def check_keeps_increasing_count(df, keeps_increasing_count):

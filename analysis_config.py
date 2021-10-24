@@ -31,14 +31,14 @@ config_download_raw_data = {
 
     "data_stores": [
         {"store_name": "亿牛：股票代码", "store_ulr": "https://eniu.com/static/data/stock_list.json",
-         "store_dir": "data/stock_id/", "extract_func": "craw_eniu_stock_id", "refresh_now": False},
+         "store_dir": "data/stock_id/", "extract_func": "craw_eniu_stock_id", "refresh_now": True},
 
         {"store_name": "亿牛：净利润", "store_ulr": "https://eniu.com/chart/profita/{stock_id}/q/0",
          "store_dir": "data/net_profit/", "stock_id_dir": "data/stock_id/",
-         "extract_func": "craw_eniu_net_profit", "refresh_now": False},
+         "extract_func": "craw_eniu_net_profit", "refresh_now": True},
 
         {"store_name": "亿牛：市盈率", "store_ulr": "https://eniu.com/chart/pea/{stock_id}/t/all",
          "store_dir": "data/price_earning_ratio", "stock_id_dir": "data/stock_id/",
-         "extract_func": "craw_eniu_price_earning_ratio", "refresh_now": False}
+         "extract_func": "craw_eniu_price_earning_ratio", "refresh_now": True}
     ]
 }
