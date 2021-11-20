@@ -11,6 +11,9 @@ def call_rule(rule, kwargs):
     if rule == "rule_price_earning_ratio":
         return rule_price_earning_ratio.apply_rule(**kwargs)
 
+    if rule == "rule_dividend_yield_ratio":
+        return rule_dividend_yield_ratio.apply_rule(**kwargs)
+
     if rule == "rule_roe":
         return rule_roe.apply_rule(**kwargs)
 

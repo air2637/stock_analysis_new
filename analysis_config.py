@@ -18,7 +18,16 @@ config_stock_filter_rules = {
             "percentile_threshold": "0.1",
             "percentile_date_range": "5 years",
             "max_per": "20"
-        }, "enabled": True},
+        }, "enabled": False},
+
+        # 股息率阈值以上
+        {"rule_dividend_yield_ratio": {
+            "raw_data_loc": "data/dividend_yield_ratio/stock_dividend_yield_ratio.csv",
+            "result_loc": "data/result/",
+            "percentage_threshold": "0.03",
+            "frequency_dividend_since_listed": "1", # e.g. 0.8 means 80% of the time got dividend
+            "cumulative_dividend_threshold": "0.5"
+        }, "enabled": False},
 
         {"rule_roe": {
             "raw_data_loc": "",
@@ -41,6 +50,11 @@ config_download_raw_data = {
 
         {"store_name": "亿牛：市盈率", "store_ulr": "https://eniu.com/chart/pea/{stock_id}/t/all",
          "store_dir": "data/price_earning_ratio", "stock_id_dir": "data/stock_id/",
-         "extract_func": "craw_eniu_price_earning_ratio", "refresh_now": True}
+         "extract_func": "craw_eniu_price_earning_ratio", "refresh_now": True},
+
+        {"store_name": "新浪：股息", "store_ulr": "http://vip.stock.finance.sina.com.cn/q/go.php/vInvestConsult/kind/lsfh/index.phtml",
+         "store_dir": "data/dividend_yield_ratio", "max_page_enforced": None, "start_page": None,
+         "extract_func": "craw_sina_dividend_yield_ratio", "refresh_now": True},
+
     ]
 }

@@ -21,5 +21,9 @@ def crawl_by(func, param_dict):
     elif func == "craw_eniu_price_earning_ratio":
         craw_eniu_price_earning_ratio.craw(param_dict["store_ulr"], param_dict["store_dir"], param_dict["stock_id_dir"])
 
+    elif func == "craw_sina_dividend_yield_ratio":
+        craw_sina_dividend_yield_ratio.craw(param_dict["store_ulr"], param_dict["store_dir"],
+                                            param_dict["max_page_enforced"], param_dict["start_page"])
+
     else:
         logger.warn("%s func name not found", func)
